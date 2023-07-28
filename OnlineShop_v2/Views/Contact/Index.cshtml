@@ -1,0 +1,129 @@
+﻿@model OnlineShopModel.EF.Contacts
+
+@{
+    ViewBag.Title = "OnlineShop - Liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /*
+    * Always set the map height explicitly to define the size of the div element
+    * that contains the map.
+    */
+    #map {
+        height: 600px;
+    }
+
+    /*
+    * Optional: Makes the sample page fill the window.
+    */
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+@section jsFooter {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="~/Asests/Client/js/ControllerJS/FeedBackControllerJS.js"></script>
+
+    <script>
+        // This example displays a marker at the center of Australia.
+        // When the user clicks the marker, an info window opens.
+        //21.059728, 105.730898
+        function initMap() {
+            const uluru = { lat: 21.059728, lng: 105.730898 };
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: uluru,
+            });
+
+            const contentString =
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h1 id="firstHeading" class="firstHeading">Trần Văn Anh</h1>' +
+                '<div id="bodyContent">' 
+                "</div>" +
+                "</div>";
+            const infowindow = new google.maps.InfoWindow({
+                content: contentString,
+                ariaLabel: "Uluru",
+            });
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map,
+                title: "Uluru (Ayers Rock)",
+            });
+
+            marker.addListener("click", () => {
+                infowindow.open({
+                    anchor: marker,
+                    map,
+                });
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap)
+                //window.initMap = initMap;
+    </script>
+
+
+
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-xl-6">
+            <h2>Thông tin liên hệ</h2>
+            <div>
+                @Html.Raw(Model.Content)
+            </div>
+
+            <div>
+                <h2>Gửi Phản hồi của bạn cho chúng tôi</h2>
+
+                <form>
+                    <div>
+                        <label for="yourname">Tên của bạn</label>
+                        <input id="txtYourName" class="form-control" name="yourname" />
+                    </div>
+
+                    <div>
+                        <label for="youremail">Email của bạn</label>
+                        <input id="txtYourEmail" class="form-control" name="youremail" />
+                    </div>
+
+                    <div>
+                        <label for="yourphonenumber">Số điện thoại</label>
+                        <input id="txtYourPhone" class="form-control" name="yourphonenumber" />
+                    </div>
+
+                    <div>
+                        <label for="youraddress">Địa chỉ</label>
+                        <input id="txtYourAddress" class="form-control" name="youraddress" />
+                    </div>
+
+                    <div>
+                        <label for="yourcontent">Phản hồi của bạn</label>
+                        <textarea id="txtYourContent" class="form-control" name="yourcontent"></textarea>
+                    </div>
+
+                    <button id="SendFeedbackBtn" class="btn btn-success mt-3" type="submit">Gửi phản hồi</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <h2>Bản đồ</h2>
+            <div id="map">
+
+            </div>
+        </div>
+    </div>
+</div>
+

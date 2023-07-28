@@ -1,0 +1,85 @@
+﻿@model List<OnlineShop_v2.Models.CartItem>
+
+<div class="header_top">
+    <div class="logo">
+        <a href="@Url.Action("Index", "Home")"><img src="~/Asests/Client/images/logo.png" alt="Đây là logo của trang web" /></a>
+    </div>
+
+    <div>
+        <div class="order-wrap">
+            <a href="/don-hang" class="order-icon">Đơn hàng</a>
+        </div>
+
+        <div class="cart">
+            <div class="cart-wrap">
+                <p class="cart-icon">Giỏ hàng</p>
+                <div class="cart-content">
+                    <div class="cart-header-box">
+                        <h3>Các sản phẩm trong giỏ hàng</h3>
+                    </div>
+
+                    <ul class="cart-content-item" id="cartList">
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <li>
+                                    <img src="@item.product.Image" width="100" />
+                                    <p>@item.product.Name</p>
+                                    <p>@item.product.Price</p>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>Không có sản phẩm nào trong giỏ hàng</li>
+                        }
+                    </ul>
+
+                    <div class="viewCart-wrap">
+                        <p>Có ... sản phẩm trong giỏ</p>
+                        <a href="gio-hang/" name="viewAllCart" class="viewAllCart-btn">Xem tất cả</a>
+                    </div>
+                </div>
+            </div>
+
+            @*<p>
+                <div id="dd" class="wrapper-dropdown-2">
+                    <span>Giỏ hàng :</span>
+                    <ul class="dropdown">
+                        <li>you have no items in your Shopping cart</li>
+                    </ul>
+                </div>
+            </p>*@
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function DropDown(el) {
+            this.dd = el;
+            this.initEvents();
+        }
+        DropDown.prototype = {
+            initEvents: function () {
+                var obj = this;
+
+                obj.dd.on('click', function (event) {
+                    $(this).toggleClass('active');
+                    event.stopPropagation();
+                });
+            }
+        }
+
+        $(function () {
+            var dd = new DropDown($('#dd'));
+
+            $(document).click(function () {
+                // all dropdowns
+                $('.wrapper-dropdown-2').removeClass('active');
+            });
+
+        });
+
+    </script>
+    @*<div class="clear"></div>*@
+</div>

@@ -1,0 +1,40 @@
+﻿@model List<OnlineShop_v2.Models.CartItem>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter {
+    <script src="~/Asests/Client/js/ControllerJS/CartControllerJS.js"></script>
+}
+
+<div>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div style="display: flex; margin: 17px 0">
+                <img src="@item.product.Image" width="100" style="margin-right: 20px" />
+                <div style="margin-right: 20px">
+                    <p>@item.product.Name</p>
+                    <p><span style="color: red">@item.product.Price.ToString("N0")</span> vnđ</p>
+                    <p><input type="text" min="0" data-id="@item.product.ID" class="txtQuantity" value="@item.Quanlity" /></p>
+                </div>
+                <p>
+                    <a href="#" data-id="@item.product.ID" class="btn deleteProdBtn">Xóa</a>
+                </p>
+            </div>
+            <hr />
+        }
+
+        <button style="padding: 7px 10px" id="continueBtn">Tiếp tục mua hang</button>
+        <button style="padding: 7px 10px" id="UpdateBtn">Cập nhật giỏ hàng</button>
+        <button style="padding: 7px 10px" id="DeleteBtn">Xóa giỏ hàng</button>
+        <button style="padding: 7px 10px" id="PaymentBtn">Thanh toán</button>
+    }
+    else
+    {
+        <h2>Không có sản phẩm nào trong giỏ hàng</h2>
+    }
+</div>
+

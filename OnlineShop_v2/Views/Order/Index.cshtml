@@ -1,0 +1,45 @@
+﻿@model List<OnlineShopModel.EF.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <h3>Danh sách các đơn hàng</h3>
+
+    <hr />
+
+    <div class="">
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">Ngày tạo</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Phương thức thanh toán</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.ID</th>
+                            <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td>@item.TotalAmount.ToString("N0") vnđ</td>
+                            <td>@item.PaymentMethod</td>
+                            <td>
+                                <a class="btn btn-primary" href="#">Chi tiết</a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+</div>

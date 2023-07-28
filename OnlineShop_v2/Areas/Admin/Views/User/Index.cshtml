@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Quản lý user";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model PagedList.IPagedList<OnlineShopModel.EF.User>
+@using PagedList.Mvc;
+
+@section jsFooter {
+    <script src="~/Asests/Admin/js/Controller/UserController.js"></script>
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Topbar Search -->
+    @using (Html.BeginForm("Index", "User", new { area = "Admin" }, FormMethod.Get, new { @class = "d-none d-sm-inline-block form-inline mr-auto my-2 w-500 mw-100 navbar-search border border-1 rounded-lg" }))
+    {
+        <div class="input-group">
+            <input type="text" value="@ViewBag.searchQuery" name="searchQuery" class="form-control bg-light border-0 small" placeholder="Search for..."
+                   aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+
+        <h1 class="h5 text-gray-800">
+            <i class="fa fa-plus"></i>
+            @Html.ActionLink("Tạo mới", "Create")
+        </h1>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách User</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Tên hiển thị</th>
+                            <th>SĐT</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày sinh</th>
+                            <th>Email</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="user_@item.ID">
+                                <td>@item.ID</td>
+                                <td>@item.Username</td>
+                                <td>@item.DisplayName</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Address</td>
+                                <td>@(item.Birthday.HasValue ? item.Birthday.Value.ToString("dd/MM/yyyy") : "")</td>
+                                <td>@item.Email</td>
+                                <td>
+                                    <a class="btn-active" href="#" data-id="@item.ID">@(item.status ? "Kích hoạt" : "Khóa")</a>
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+                <div class="paged">
+                    <p class="">
+                        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                    </p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchQuery = @ViewBag.searchQuery }), new PagedListRenderOptions { ClassToApplyToFirstListItemInPager = "", ClassToApplyToLastListItemInPager = "" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model List<OnlineShopModel.EF.Content>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Topbar Search -->
+    @using (Html.BeginForm("Index", "Content", new { area = "Admin" }, FormMethod.Get, new { @class = "d-none d-sm-inline-block form-inline mr-auto my-2 w-500 mw-100 navbar-search border border-1 rounded-lg" }))
+    {
+        <div class="input-group">
+            <input type="text" value="@ViewBag.searchQuery" name="searchQuery" class="form-control bg-light border-0 small" placeholder="Search for..."
+                   aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Bài viết</h1>
+
+        <h1 class="h5 text-gray-800">
+            <i class="fa fa-plus"></i>
+            @Html.ActionLink("Tạo mới", "Create")
+        </h1>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Các bài viết đã tạo</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @foreach (var item in Model)
+                {
+                    /* TODO: Hiển thị các bài viết ra view*/
+                    <div class="w-100 mb-4">
+                        <img class="w-100 mb-4 rounded-2" src="@(item.Image)" alt="Đây là hình ảnh demo" />
+                        <h4>@item.Name</h4>
+                        <p>@item.Description</p>
+                        <div class="d-flex">
+                            <p class="me-5">Lượt xem</p>
+                            <p>@item.ViewCount</p>
+                        </div>
+
+                        <div class="d-flex">
+                            <p class="me-5">Ngày đăng</p>
+                            <p>@item.CreatedDate</p>
+                        </div>
+
+                        <div class="d-flex">
+                            <p class="me-5">Người đăng</p>
+                            <p>@item.CreatedBy</p>
+                        </div>
+                        <p>
+                            @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+                        </p>
+                    </div>
+
+                    <hr style="height: 2px; border: none; background-color: black;">
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

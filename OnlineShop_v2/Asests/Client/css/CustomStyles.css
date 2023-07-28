@@ -1,0 +1,230 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+.newProductBox {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.newProductBoxDetail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.newProductItem {
+    position: relative;
+    margin: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+    .newProductItem:hover {
+        transform: scale(1.06);
+        box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
+    }
+
+.content .title-custom-tuncate {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.8rem;
+    height: 3.6rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-transform: none;
+}
+
+.content .category_title {
+    font-size: 20px;
+    margin: 10px 0 20px 5px;
+    text-transform: uppercase;
+}
+
+.content .ModelIsNull {
+    display: block;
+    margin: 100px auto;
+    font-size: 28px;
+    color: red;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.content .category_title:hover {
+    color: red;
+}
+
+.item-wrap {
+    margin: 10px 10px 6px;
+}
+
+.price-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    margin-top: 15px;
+}
+
+    .price-box .price-item {
+        color: red;
+    }
+
+.add-cart {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+    .add-cart button {
+        font-size: 18px;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+
+/* Product Detail Page*/
+.content_top .back-links {
+    float: none;
+    margin: auto 0;
+}
+
+
+/* Sản phẩm trong danh mục sản phẩm*/
+/*Phân trang*/
+.pagigation-wrap {
+    display: block;
+    text-align: center;
+    margin: 50px 0 10px 0
+}
+
+.pagination-item {
+    border: 1px solid #111;
+    padding: 5px 8px;
+    margin: 0 4px;
+    transition: all 0.3s ease;
+}
+
+.active {
+    border-color: red;
+    color: red;
+}
+
+
+/* Khu vựa header top  */
+
+.header_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    float: none;
+}
+
+.cart-wrap {
+    position: relative;
+}
+
+.cart-wrap:hover .cart-content {
+    display: block;
+}
+
+.cart-content {
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+    top: 28px;
+    padding: 15px;
+    right: -18px;
+    width: 400px;
+    display: none;
+    border-radius: 10px;
+    -webkit-box-shadow: -2px 4px 36px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 4px 36px -4px rgba(0,0,0,0.75);
+    box-shadow: -2px 4px 36px -4px rgba(0,0,0,0.75);
+}
+
+.cart-content:after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 18px 118px;
+    border-color: transparent;
+    right: 1px;
+    top: -14px;
+}
+
+.cart-content-item {
+    max-height: 40vh;
+    overflow-y: auto;
+    margin: 8px 0;
+    padding: 15px 0;
+}
+
+.cart-content-item::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.cart-content-item::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.cart-content-item::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+.cart-content-item::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.cart-icon:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.cart-header-box {
+    text-align: left;
+    font-size: 17px;
+    border-bottom: 1.5px solid #333;
+    padding-bottom: 10px;
+}
+
+.viewCart-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1.5px solid #333;
+    margin-top: 10px;
+}
+
+.viewAllCart-btn {
+    display: inline-block;
+    padding: 7px 13px;
+    color: #fff;
+    background: #B81D22;
+    border-radius: 7px;
+}

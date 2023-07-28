@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<OnlineShop_v2.Models.CartItem>
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter {
+    <script src="~/Asests/Client/js/ControllerJS/CartControllerJS.js"></script>
+}
+
+<div>
+    <div>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div style="display: flex; margin: 17px 0">
+                    <img src="@item.product.Image" width="100" style="margin-right: 20px" />
+                    <div style="margin-right: 20px">
+                        <p>@item.product.Name</p>
+                        <p><span style="color: red">@item.product.Price.ToString("N0")</span> vnđ</p>
+                        <p><input type="text" min="0" data-id="@item.product.ID" class="txtQuantity" value="@item.Quanlity" /></p>
+                    </div>
+                </div>
+                <hr />
+            }
+        }
+    </div>
+
+    <div>
+        @{ 
+            var totalPayment = 0;
+        }
+        @foreach(var item in Model)
+        {
+            totalPayment += item.Quanlity * (int)item.product.Price;
+        }
+
+        <h3><span>@totalPayment</span> vnđ</h3>
+    </div>
+
+    <div>
+        <h3>Phương thức giao hàng : </h3>
+        <p>Giao hàng nhanh</p>
+    </div>
+
+    <div>
+        @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+        {
+            <div class="form-control">
+                <label for="shipName">Người nhận</label>
+                <input name="shipName" type="text" />
+            </div>
+
+            <div class="form-control">
+                <label for="phone">Số điện thoại</label>
+                <input name="phone" type="text" />
+            </div>
+
+            <div class="form-control">
+                <label for="address">Địa chỉ sinh sống</label>
+                <input name="address" type="text" />
+            </div>
+
+            <div class="form-control">
+                <label for="email">Địa chỉ email</label>
+                <input name="email" type="text" />
+            </div>
+
+            <div>
+                <label for="paymentMethod">Phương thức thanh toán</label>
+                <select name="paymentMethod">
+                    <option value="Thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
+                    <option value="Thanh toán bằng tài khoản ngân hàng">Thanh toán bằng tài khoản ngân hàng</option>
+                </select>
+            </div>
+
+            <div class="form-control">
+                <button type="submit" id="paymentBtn">Thanh toán</button>
+            </div>
+        }
+    </div>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+﻿@model OnlineShopModel.EF.Content
+
+@{
+    ViewBag.Title = "Bài viết - Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+        <div>
+            <h2>@(Model.Name)</h2>
+
+            <div>
+                <div>
+                    @* Đây sẽ là avatar của người đăng *@
+                </div>
+                <p class="mb-0">@(Model.CreatedBy)</p>  
+                <p class="mb-0">@(Model.CreatedDate)</p>
+                <p>Lượt xem: @(Model.ViewCount)</p>
+            </div>
+
+            <div>
+                <img class="w-100 mb-4 rounded-2" src="@(Model.Image)" alt="Đây là hình ảnh" />
+            </div>
+
+            <div class="">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

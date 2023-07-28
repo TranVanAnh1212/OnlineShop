@@ -1,0 +1,100 @@
+﻿@model List<OnlineShopModel.EF.Product>
+@using OnlineShopModel.EF
+@using OnlineShopModel.DAO
+
+@{
+    var productCateg = (ProductCategory)ViewBag.ProductCateg;
+    ViewBag.Title = productCateg;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <h2 class="category_title">@productCateg.Name</h2>
+    <hr />
+
+    @*
+        Model.Any() bên trong điều kiện @if.Điều này sẽ đảm bảo vòng lặp
+        foreach chỉ được thực hiện khi có sản phẩm trong Model.
+        Nếu Mô hình rỗng hoặc trống, khối khác sẽ được thực thi
+    *@
+    @if (Model != null && Model.Any())
+    {
+        <div class="newProductBox">
+            @foreach (var item in Model)
+            {
+                <div class="newProductItem">
+
+                    <a class="w-100" href="#">
+                        <img src="@item.Image" alt="Đây là hình ảnh của @item.Name" />
+                    </a>
+
+                    <div class="item-wrap">
+                        <h2 class="title-custom-tuncate"><a href="#">@item.Name</a></h2>
+                        <div class="">
+                            <div class="price-box">
+                                <p><span class="price-item">@item.Price.ToString("N0") NVĐ</span></p>
+                                <p><span>Đã bán: @item.BoughtCount</span></p>
+                            </div>
+                            <div class="add-cart">
+                                <h4><a href="#">Add to Cart</a></h4>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        // Phân trang
+
+        <div>
+            @if (ViewBag.totalPage > 1)
+            {
+                var pageDisplay = (int)(ViewBag.maxPage);
+                var totalPage = (int)ViewBag.totalPage;
+                var currentPage = (int)ViewBag.Page;
+
+                var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+                var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+
+                var categID = productCateg.ID;
+                var MetaTitle = productCateg.MetaTitle;
+
+                var link = productCateg.MetaTitle + "-" + productCateg.ID;
+
+                <div class="pagigation-wrap">
+                    @if (currentPage > ViewBag.firstPage)
+                    {
+                        <a href="@link?page=@ViewBag.firstPage" title="Trang đầu" class="first pagination-item">Trang đầu</a>
+                        <a href="@link?page=@ViewBag.PrevPage" title="Trang trước" class="prev pagination-item">Trang trước</a>
+                    }
+
+                    @for (int i = startPageIndex; i <= endPageIndex; i++)
+                    {
+                        if (currentPage == i)
+                        {
+                            <a href="@link?page=@i" class="active pagination-item" title="Trang @i">@i</a>
+                        }
+                        else
+                        {
+                            <a href="@link?page=@i" class="pos pagination-item" title="Trang @i">@i</a>
+                        }
+                    }
+
+                    @if (currentPage < totalPage)
+                    {
+                        <a href="@link?page=@ViewBag.nextPage" title="Trang sau" class="next pagination-item">Trang sau</a>
+                        <a href="@link?page=@ViewBag.lastPage" title="Trang cuối" class="last pagination-item">Trang cuối</a>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h2 class="ModelIsNull">Không có sản phẩm nào thuộc danh mục @productCateg.Name</h2>
+    }
+
+</div>
+

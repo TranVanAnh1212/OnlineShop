@@ -1,0 +1,87 @@
+﻿@model OnlineShopModel.EF.Product
+@*@model OnlineShopModel.EF.ProductCategory*@
+@using OnlineShopModel.EF
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div>
+        <img style="float: left; width: 400px; border-radius: 15px; margin-right: 10px" src="@Model.Image" alt="@Model.Name + @Model.ID" />
+
+        <div>
+            <h3>@Model.Name</h3>
+            @{
+                using (var db = new OnlineShopDBContext())
+                {
+                    var category = db.ProductCategory.FirstOrDefault(c => c.ID == Model.CategoryID);
+                    if (category != null)
+                    {
+                        <h6>Danh mục sản phẩm: @category.Name</h6>
+                    }
+                }
+            }
+            <h4 style="color: orangered">
+                @if (Model.PromotionPrice != 0)
+                {
+                <span style="text-decoration: line-through; font-size: 16px;">@(Model.PromotionPrice.HasValue? Model.PromotionPrice.ToString() : "")</span>
+                }
+                <span>@Model.Price.ToString("N0")</span>
+                vnđ
+            </h4>
+            <p>Đã bán: @Model.BoughtCount</p>
+            <p>Số lượng trong kho: @Model.Quanlity</p>
+            <p>Lượt xem: @Model.ViewCount</p>
+        </div>
+    </div>
+
+    <div style="clear: left; padding-top: 50px">
+        <div>
+            <h4>Mô tả</h4>
+            <p>@Html.Raw(@Model.Description)</p>
+        </div>
+
+        <div>
+            <h4>Chi tiết về sản phẩm</h4>
+            <p>@Html.Raw(@Model.Detail)</p>
+        </div>
+    </div>
+
+    <hr style="height: 5px; border-width: 0; color: gray; background-color: gray" />
+
+    <div>
+        <div class="row">
+            <p class="col-xl-3">Ngày tạo: </p>
+            <p class="col-xl-7">@Model.CreatedDate</p>
+        </div>
+
+        <div class="row">
+            <p class="col-xl-3">Tạo bởi: </p>
+            <p class="col-xl-7">@Model.CreatedBy</p>
+        </div>
+
+        <div class="row">
+            <p class="col-xl-3">Ngày thay đổi gần nhất: </p>
+            <p class="col-xl-7">@(Model.ModifiedDate.HasValue ? @Model.ModifiedDate.Value.ToString("dd/MM/yyyy") : "Chưa có thay đổi")</p>
+        </div>
+
+        <div class="row">
+            <p class="col-xl-3">Thay đổi bởi: </p>
+            <p class="col-xl-7">@Model.CreatedBy</p>
+        </div>
+    </div>
+
+    <div>
+        <h6>Trạng thái sản phẩm: @(Model.Status ? "Hiển thị" : "Ẩn" )</h6>
+    </div>
+
+</div>
+
+<hr style="height: 5px; border-width: 0; color: gray; background-color: gray" />
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</p>

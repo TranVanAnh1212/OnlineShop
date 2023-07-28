@@ -1,0 +1,24 @@
+﻿@model List<OnlineShopModel.EF.Menu>
+@using OnlineShop_v2.Common
+@{
+    var customerSession = (CustomerLogin) Session[CommonConstants.CUSTOMER_SESSION];
+}
+
+@if (customerSession == null)
+{
+    <ul>
+        @foreach (var item in Model)
+        {
+
+            <li><a href="@item.Link" target="@item.Target">@item.Text</a></li>
+        }
+    </ul>
+}
+else
+{
+    <ul>
+        <li>Xin chào : @customerSession.Username</li>
+        <li>@Html.ActionLink("Đăng xuất", "Logout", "Customer")</li>
+    </ul>
+}
+
